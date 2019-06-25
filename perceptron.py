@@ -30,21 +30,18 @@ class Perceptron:
         self.inputs = inputs
         total = 0;
         for i in range(len(self.weights)):
-            # print ("value of i is = " + str(i))
             total += self.inputs[i]*self.weights[i];
         print("Sum = " + str(total))
 
         # Activation function
         output = sign(total)
         print("Output = " + str(output))
-        
         if (output == -1):
             return 0
         else:
             return 1
-        
     
-    # Training perceptron with known answer ( supervised learning)
+    # Training perceptron with known answer (supervised learning)
     def train(self, inputs, target, r):
         self.learnRate = r
         self.inputs = inputs
@@ -55,6 +52,7 @@ class Perceptron:
         error = target - guessVal
         print("Error = " + str(error))
 
+        # Tuning weights
         for i in range(len(self.weights)):
             # Gradient descent
             deltaWeight = error * self.inputs[i] * self.learnRate
