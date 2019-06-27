@@ -11,18 +11,17 @@ def sign(a):
         return -1
 
 # Function return value between 0 and 1 for x input
-def sigmoid(x):
-    out = 1/(1+math.exp(-x))
+def sigmoid(a):
+    out = 1/(1+math.exp(-a))
     return (out)
 
 class Perceptron:
 
     # Constructor
-    def __init__(self,inputLen,activationFunc):
+    def __init__(self,inputLen):
         self.weights = [None] * inputLen
         self.inputs = []
         self.learnRate = 0;
-        self.activationFunc = activationFunc;
 
         # Assiging random values to weights
         for i in range(len(self.weights)):
@@ -30,7 +29,7 @@ class Perceptron:
             # randVal = randint(0,9)
             randVal = random.uniform(-1,1)
             self.weights[i] =  randVal
-        print("Random weights = " + str(self.weights))
+        # print("Random weights = " + str(self.weights))
     
     # Function for guessing output
     def guess(self,inputs):
@@ -38,32 +37,36 @@ class Perceptron:
         total = 0;
         for i in range(len(self.weights)):
             total += self.inputs[i]*self.weights[i];
+        # print("Sum = " + str(total))
+
+        # Activation function
+        output = sign(total)
+        # print("Output = " + str(output))
+        if (output == -1):
+            return 0
+        else:
+            return 1
+
+    def guessAnimate(self,inputs):
+        self.inputs = inputs
+        total = 0;
+        for i in range(len(self.weights)):
+            total += self.inputs[i]*self.weights[i];
         print("Sum = " + str(total))
 
         # Activation function
-        if (self.activationFunc == "sign"):
-            output = sign(total)
-        elif (self.activationFunc == "sigmoid"):
-            output = sigmoid(total)
-        print("Output = " + str(output))
-        return output
+        return sigmoid(total)
     
     # Training perceptron with known answer (supervised learning)
-    def train(self, inputs, target, r, classification):
+    def train(self, inputs, target, r):
         self.learnRate = r
         self.inputs = inputs
-        result = self.guess(self.inputs)
-        print("result value = " + str(result))
-
-        # User classification function
-        classifyFunc = classification
-        guessVal = classifyFunc(result)
-
-        print("Inputs value = " + str(inputs))
-        print("Target value = " + str(target))
-        print("Guess value = " + str(guessVal))
+        guessVal = self.guess(self.inputs)
+        # print("Inputs value = " + str(inputs))
+        # print("Target value = " + str(target))
+        # print("Guess value = " + str(guessVal))
         error = target - guessVal
-        print("Error = " + str(error))
+        # print("Error = " + str(error))
 
         # Tuning weights
         for i in range(len(self.weights)):
