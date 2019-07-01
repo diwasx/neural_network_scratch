@@ -21,8 +21,8 @@ class Perceptron:
     def __init__(self,inputLen,activationFunc):
         self.weights = [None] * inputLen
         self.inputs = []
-        self.learnRate = 0;
-        self.activationFunc = activationFunc;
+        self.learnRate = 0
+        self.activationFunc = activationFunc
 
         # Assiging random values to weights
         for i in range(len(self.weights)):
@@ -35,9 +35,9 @@ class Perceptron:
     # Function for guessing output
     def guess(self,inputs):
         self.inputs = inputs
-        total = 0;
+        total = 0
         for i in range(len(self.weights)):
-            total += self.inputs[i]*self.weights[i];
+            total += self.inputs[i]*self.weights[i]
         print("Sum = " + str(total))
 
         # Activation function
