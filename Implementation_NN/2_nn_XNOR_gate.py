@@ -15,10 +15,10 @@ n = NeuralNetwork(inputLen, hiddenLen, outputLen)
 # n = NeuralNetwork(2, 2, 1)
 
 training_data = {
-    1: {'inputs': np.array([[0],[0]]), 'targets': np.array([[0]])},
-    2: {'inputs': np.array([[0],[1]]), 'targets': np.array([[1]])},
-    3: {'inputs': np.array([[1],[0]]), 'targets': np.array([[1]])},
-    4: {'inputs': np.array([[1],[1]]), 'targets': np.array([[0]])},
+    1: {'inputs': np.array([[0],[0]]), 'targets': np.array([[1]])},
+    2: {'inputs': np.array([[0],[1]]), 'targets': np.array([[0]])},
+    3: {'inputs': np.array([[1],[0]]), 'targets': np.array([[0]])},
+    4: {'inputs': np.array([[1],[1]]), 'targets': np.array([[1]])},
     }
 
 print("\033[4m" + "\n### Training ###" + "\033[0m")
@@ -26,13 +26,9 @@ print("\033[4m" + "\n### Training ###" + "\033[0m")
 # print (x.get('inputs'))
 
 for i in range(10000):
-# for i in range(1000):
-    # x = random.choice(list(training_data.keys()))
     x = random.choice(list(training_data.values()))
     inputs =  x.get('inputs')
     targets =  x.get('targets')
-    # print("Input = " + str(inputs))
-    # print("Targets = " + str(targets) + "\n")
     n.trainSVLearing(inputs,targets,learningRate)
 
 
