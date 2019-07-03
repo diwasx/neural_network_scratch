@@ -1,0 +1,24 @@
+Universal function approximator --> neural network
+Bias : Bias is like the intercept added in a linear equation. It is an additional parameter in the Neural Network which is used to adjust the output along with the weighted sum of the inputs to the neuron. Therefore Bias is a constant which helps the model in a way that it can fit best for the given data.
+Bias alows a classifier to shift the decision boundary left or right
+
+/* http://neuralnetworksanddeeplearning.com/chap1.html */ 
+
+https://www.youtube.com/playlist?list=PLRqwX-V7Uu6Y7MdSCaIfsxc561QI0U0Tb --> Youtube Playlist
+https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53 --> Perceptron explaination
+https://www.youtube.com/watch?v=OVHc-7GYRo4 --> Perceptron video explation
+https://github.com/nature-of-code/NOC-S17-2-Intelligence-Learning/tree/master/week4-neural-networks --> Neural network references
+https://towardsdatascience.com/activation-functions-and-its-types-which-is-better-a9a5310cc8f --> Most used activation function
+https://www.quora.com/How-can-a-neural-network-be-used-in-the-case-of-supervised-unsupervised-and-reinforcement-learning --> Neural Network supervised, unsupervised and reforcement method explanation
+
+sigmoid function (logistic function): sig(x) = 1/(1+e^-x)
+derivation of sigmoid: sig'(x) = sig(x)[1-sig(x)]
+https://math.stackexchange.com/a/1225116/665920
+
+# Gradient -> In vector calculus, the gradient is a multi-variable generalization of the derivative.
+https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/gradient-and-directional-derivatives/v/gradient
+
+# Gradient descent is an optimization algorithm used to minimize some function by iteratively moving in the direction of steepest descent as defined by the negative of the gradient. In machine learning, we use gradient descent to update the parameters of our model. Parameters refer to coefficients in Linear Regression and weights in neural networks.
+https://www.youtube.com/watch?v=jc2IthslyzM
+
+

@@ -1,0 +1,1 @@
+- total cost function of network
