@@ -17,13 +17,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 # Function return value between 0 and 1 for all element of matrix
-def sigmoid(x):
-    tmpMatrix = np.zeros(shape=(len(x),1))
-    # f(x) = 1/(1+e^-x)
-    for i in range(len(x)):
-        tmpMatrix[i][0] = (1/(1+math.exp(-x[i][0])))
-    # print(tmpMatrix)
-    return (tmpMatrix)
+HAAAAAAAAAAA    return (tmpMatrix)
 
 # Function return derivative value of sigmoid function for all element of matrix
 def dSigmoid(x):
