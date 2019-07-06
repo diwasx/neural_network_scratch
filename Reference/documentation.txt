@@ -1,0 +1,4 @@
+sklearn for dataset
+numpy for matrix multiplication
+tkinter for animation
+matplotlib for graph

@@ -19,7 +19,7 @@ tk.title("Drawing_float")
 canvas.pack()
 
 inputLen = 2
-hiddenLen = 3
+hiddenLen = 4
 outputLen = 1
 learningRate = 0.1
 n = NeuralNetwork(inputLen, hiddenLen, outputLen)

@@ -11,7 +11,7 @@ https://github.com/nature-of-code/NOC-S17-2-Intelligence-Learning/tree/master/we
 https://towardsdatascience.com/activation-functions-and-its-types-which-is-better-a9a5310cc8f --> Most used activation function
 https://www.quora.com/How-can-a-neural-network-be-used-in-the-case-of-supervised-unsupervised-and-reinforcement-learning --> Neural Network supervised, unsupervised and reforcement method explanation
 
-sigmoid function (logistic function): sig(x) = 1/(1+e^-x)
+# sigmoid function (logistic function): sig(x) = 1/(1+e^-x)
 derivation of sigmoid: sig'(x) = sig(x)[1-sig(x)]
 https://math.stackexchange.com/a/1225116/665920
 
@@ -21,4 +21,4 @@ https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivative
 # Gradient descent is an optimization algorithm used to minimize some function by iteratively moving in the direction of steepest descent as defined by the negative of the gradient. In machine learning, we use gradient descent to update the parameters of our model. Parameters refer to coefficients in Linear Regression and weights in neural networks.
 https://www.youtube.com/watch?v=jc2IthslyzM
 
-
+# NeuroEvolution of Augmenting Topologies (NEAT) is a genetic algorithm (GA) for the generation of evolving artificial neural networks (a neuroevolution)
