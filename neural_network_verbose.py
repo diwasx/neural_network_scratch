@@ -94,8 +94,8 @@ class NeuralNetwork:
         self.outputs = self.weightsOut.dot(self.hiddens) + self.biasOut
         # print("\nMatrix of Outputs \n" + str(self.outputs))
         self.outputs = sigmoid(self.outputs)
-        print(bcolors.OKBLUE + "\nMatrix of Outputs after activation\n"+ str(self.outputs) + bcolors.ENDC)
-        # return self.outputs
+        # print(bcolors.OKBLUE + "\nMatrix of Outputs after activation\n"+ str(self.outputs) + bcolors.ENDC)
+        return self.outputs
 
     # Training NN using Supervised learning
     def trainSVLearing(self, inputs, targets, learningR):
