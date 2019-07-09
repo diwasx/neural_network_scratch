@@ -21,7 +21,13 @@ def sigmoid(x):
     tmpMatrix = np.zeros(shape=(len(x),1))
     # f(x) = 1/(1+e^-x)
     for i in range(len(x)):
-        tmpMatrix[i][0] = (1/(1+math.exp(-x[i][0])))
+        # Argument is a large negative value, so it is calling exp() with a large positive value. It is very easy to exceed floating point range that way
+        # This condition solve that problem
+        if (x[i][0]) < 0:
+            tmpMatrix[i][0] = 1 - 1/(1+math.exp(x[i][0]))
+        else:
+            # Original sigmoid function
+            tmpMatrix[i][0] = 1/(1+math.exp(-x[i][0]))
     # print(tmpMatrix)
     return (tmpMatrix)
 

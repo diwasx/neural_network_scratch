@@ -18,7 +18,6 @@ class bcolors:
 
 # Function return value between 0 and 1 for all element of matrix
 def sigmoid(x):
-
     tmpMatrix = np.zeros(shape=(len(x),1))
     # f(x) = 1/(1+e^-x)
     for i in range(len(x)):

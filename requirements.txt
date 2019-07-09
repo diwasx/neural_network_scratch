@@ -2,3 +2,5 @@ numpy
 tkinter
 sklearn
 matplotlib
+sklearn
+pillow

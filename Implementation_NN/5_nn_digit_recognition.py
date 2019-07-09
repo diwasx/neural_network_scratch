@@ -16,7 +16,7 @@ from neural_network import NeuralNetwork
 
 
 learningRate = 0.1
-# nn = NeuralNetwork(64, 40, 10)
+# nn = NeuralNetwork(64, 100, 10)
 nn = NeuralNetwork(64, 150, 10)
 digits = d.load_digits()
 
@@ -43,10 +43,12 @@ def showPic(i):
 
     vfunc = np.vectorize(normalization)
     normalizedImg = vfunc(imgTrain)
-    print(normalizedImg)
-
+    normalizedImgInv = 255-normalizedImg
+    # print(normalizedImg)
+    print(normalizedImgInv)
     # plt.imshow(normalizedImg, cmap=plt.cm.gray_r, interpolation='nearest')
-    plt.imshow(normalizedImg, cmap=plt.cm.gray, interpolation='nearest')
+    # plt.imshow(normalizedImg, cmap=plt.cm.gray, interpolation='nearest')
+    plt.imshow(normalizedImgInv, cmap=plt.cm.gray, interpolation='nearest')
     # plt.imshow(normalizedImg)
     plt.show()
             
@@ -104,25 +106,12 @@ def testing():
     accuracy = a/(end-start)
     print ("Accuracy %\n" + str(accuracy) + "\n")
 
-widthSize = 400
-heightSize = 400
 def drawingCanvas():
 
-    # def click(click_event):
-    #     global prev
-    #     prev = click_event
-
-
-    # def move(move_event):
-    #     global prev
-    #     # canvas.create_line(prev.x, prev.y, move_event.x, move_event.y, width=30)
-    #     canvas.create_line(prev.x, prev.y, move_event.x, move_event.y, width=10)
-    #     prev = move_event  # what does this do ?
-    width = 200
-    height = 200
+    width = 100
+    height = 100
     # width = 400
     # height = 400
-    center = height//2
     white = (255, 255, 255)
     green = (0,128,0)
 
@@ -132,14 +121,14 @@ def drawingCanvas():
         original_image = Image.open("image.png")
         size = (8,8)
         resizeImg = ImageOps.fit(original_image, size, Image.ANTIALIAS).convert('L')
-        print (resizeImg)
+        # print (resizeImg)
 
         # img = Image.open('image.png')
         # img = Image.open('image.png').convert('LA')
         arr = np.array(resizeImg)
         normalizeArr = 255-arr
         # print(arr)
-        print(normalizeArr)
+        # print(normalizeArr)
 
         imgVec = np.zeros(shape=(64,1))
         n = 0
@@ -151,22 +140,39 @@ def drawingCanvas():
         outputMat = nn.feedForward(imgVec)
         maxVal = outputMat.max()
         output = outputMat.tolist().index(maxVal)
-        print("Output is --> " +str(output))
+        print("Machine Predicted: " +str(output))
 
+        def machineImg():
+            randVal = random.randint(0,1796)
+            target = digits.target[randVal]
+            if (target == output):
+                imgTrain = digits.images[randVal]
+                vfunc = np.vectorize(normalization)
+                normalizedImg = vfunc(imgTrain)
+                global machineArr
+                machineArr = 255-normalizedImg
+                # print("MachineArr:\n" + str(machineArr))
+                return;
+            machineImg()
+
+        machineImg()
+        # print("User Img:\n" + str(arr))
+        global machineArr
+        # print("Machine Predicted:\n" + str(machineArr))
+        plt.subplot(1,2,1);
         plt.imshow(arr, cmap=plt.cm.gray, interpolation='nearest')
-        # plt.imshow(arr)
+        plt.subplot(1,2,2);
+        plt.imshow(machineArr, cmap=plt.cm.gray, interpolation='nearest')
         plt.show()
-
-
 
     def paint(event):
         # python_green = "#476042"
         x1, y1 = (event.x - 1), (event.y - 1)
         x2, y2 = (event.x + 1), (event.y + 1)
         # cv.create_oval(x1, y1, x2, y2, fill="black",width=10)
-        cv.create_line(x1, y1, x2, y2, fill="black",width=10)
+        cv.create_line(x1, y1, x2, y2, fill="black",width=7)
 
-        draw.line([x1, y1, x2, y2],fill="black",width=10)
+        draw.line([x1, y1, x2, y2],fill="black",width=7)
         # draw.ellipse([x1, y1, x2*1.2, y2*1.2],fill="black",width=10)
 
     def clear():
@@ -204,7 +210,7 @@ def drawingCanvas():
     buttonClear.pack()
     root.mainloop()
 
-# showPic(97)
+# showPic(6)
 training()
 testing()
 drawingCanvas()
