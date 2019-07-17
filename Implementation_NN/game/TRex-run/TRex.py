@@ -51,12 +51,13 @@ def redrawGameWindow():
         font = pygame.font.SysFont('Arial', 25)
         win.blit(font.render("Score: "+str(score), True, (255,0,255)), (1000, 50))
         win.blit(font.render("Highscore: "+str(highScore), True, (0,255,255)), (780, 50))
+        pygame.draw.line(win, (255,0,0), (0,400), (screenWidth, 400))
 
         # Dino part
         rectDino = d1.draw(win)
         d1.width,d1.height = 30,90
         if not(d1.isJump):
-            d1.y=320
+            d1.y=310
 
         # Obstacle part
         rand = random.randint(0,50)
@@ -104,12 +105,12 @@ def redrawGameWindow():
 def main():
     global screenWidth, screenHeight, win, fps, clock, d1, obstacles, gen, speed, run, score, highScore
     score = 0
-    screenWidth, screenHeight = 1200, 400
+    screenWidth, screenHeight = 1200, 500
     win = pygame.display.set_mode((screenWidth,screenHeight))
     pygame.display.set_caption("TRex Run")
     fps = 60
     clock = pygame.time.Clock()
-    d1 = Dino(30,320,30,90)
+    d1 = Dino(30,310,30,90)
     obstacles = []
     gen = 0
     speed = 1

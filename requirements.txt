@@ -3,3 +3,4 @@ sklearn
 matplotlib
 sklearn
 pillow
+pygame
