@@ -22,3 +22,6 @@ https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivative
 https://www.youtube.com/watch?v=jc2IthslyzM
 
 # NeuroEvolution of Augmenting Topologies (NEAT) is a genetic algorithm (GA) for the generation of evolving artificial neural networks (a neuroevolution)
+
+# Convolutional Neural Networkk
+https://www.youtube.com/watch?v=ixF5WNpTzCA

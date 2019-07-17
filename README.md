@@ -1,5 +1,5 @@
 # neural_network_scratch
-Neural Network Library from scratch
+Basic Neural Network Library from scratch.
 
 ## Requirement
 >python3, pip3

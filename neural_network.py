@@ -167,3 +167,7 @@ class NeuralNetwork:
         # new biasHid += learningR * hidden_errors * hidden_gradient
         self.biasHid+=tmpHid
         # print("\nNew Hiddens Bias\n"+ str(self.biasHid) + bcolors.ENDC)
+
+    def nnVisualization(self):
+        print ('\nthis is visualization')
+
