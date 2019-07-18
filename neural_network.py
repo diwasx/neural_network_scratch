@@ -54,7 +54,7 @@ class NeuralNetwork:
             for n in range(self.i):
                 randVal = random.uniform(-1,1)
                 self.weightsHid[m][n] =  randVal
-        print("\nWeights of hidden\n" + str(self.weightsHid))
+        # print("\nWeights of hidden\n" + str(self.weightsHid))
 
         # Weights for Output
         self.weightsOut = np.zeros(shape=(self.k,self.j)) # w'
@@ -62,7 +62,7 @@ class NeuralNetwork:
             for n in range(self.j):
                 randVal = random.uniform(-1,1)
                 self.weightsOut[m][n] =  randVal
-        print("\nWeights of output\n" + str(self.weightsOut))
+        # print("\nWeights of output\n" + str(self.weightsOut))
 
         # Creating Bias and assiging random values
         # Bias for Hidden
@@ -70,15 +70,15 @@ class NeuralNetwork:
         for j in range(self.j):
             randVal = random.uniform(-1,1)
             self.biasHid[j][0] =  randVal
-        print("\nBias of hidden\n" + str(self.biasHid))
+        # print("\nBias of hidden\n" + str(self.biasHid))
 
         # Bias for Output
         self.biasOut = np.zeros(shape=(self.k,1))
         for k in range(self.k):
             randVal = random.uniform(-1,1)
             self.biasOut[k][0] =  randVal
-        print("\nBias of output\n" + str(self.biasOut))
-        print("\n")
+        # print("\nBias of output\n" + str(self.biasOut))
+        # print("\n")
 
     # Algorithm that computes output based on weight and bias (similar to guess function in perceptron)
     def feedForward(self,inputs):
@@ -171,3 +171,23 @@ class NeuralNetwork:
     def nnVisualization(self):
         print ('\nthis is visualization')
 
+
+    # For Neuro Evolution
+    def copy(self):
+        return (self)
+
+    def mutate(self, mutationRate):
+
+        def mutateElement(val):
+            if (random.uniform(0,1) < mutationRate):
+                # x = (random.uniform(0,1000))
+                x = 2 * random.uniform(0,1) - 1
+                return x
+            else:
+                return val
+            
+        vfunc = np.vectorize(mutateElement)
+        self.weightsHid = vfunc(self.weightsHid)
+        self.weightsOut = vfunc(self.weightsOut)
+        self.biasHid = vfunc(self.biasHid)
+        self.biasOut = vfunc(self.biasOut)

@@ -129,8 +129,9 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_DOWN] and d1.x > 0:
             if not(d1.isJump):
+                # Ducking
                 d1.width,d1.height = 90,30
-                d1.y +=50
+                d1.y +=60
 
         if not(d1.isJump):
             if keys[pygame.K_SPACE] or keys[pygame.K_UP]:

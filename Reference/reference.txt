@@ -8,6 +8,7 @@ https://www.youtube.com/playlist?list=PLRqwX-V7Uu6Y7MdSCaIfsxc561QI0U0Tb --> You
 https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53 --> Perceptron explaination
 https://www.youtube.com/watch?v=OVHc-7GYRo4 --> Perceptron video explation
 https://github.com/nature-of-code/NOC-S17-2-Intelligence-Learning/tree/master/week4-neural-networks --> Neural network references
+https://natureofcode.com/book/chapter-10-neural-networks/ --> Nature of code book
 https://towardsdatascience.com/activation-functions-and-its-types-which-is-better-a9a5310cc8f --> Most used activation function
 https://www.quora.com/How-can-a-neural-network-be-used-in-the-case-of-supervised-unsupervised-and-reinforcement-learning --> Neural Network supervised, unsupervised and reforcement method explanation
 
