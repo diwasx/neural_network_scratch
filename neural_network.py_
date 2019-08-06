@@ -5,8 +5,6 @@ import random
 import math
 import sys
 import numpy as np
-from tkinter import * 
-import time
 
 class bcolors:
     HEADER = '\033[95m'
@@ -173,53 +171,6 @@ class NeuralNetwork:
     def nnVisualization(self):
         print ('\nthis is visualization')
 
-        tk = Tk()
-        widthSize = 800
-        heightSize = 600
-        frameRate = 60
-        # frameRate = 240
-        frameSpeed = int(1 / frameRate * 1000)
-
-        canvas = Canvas(tk, width=widthSize, height=heightSize)
-        tk.title("Drawing_float")
-        canvas.pack()
-
-        # For input layer
-        inputNodes = [None] * self.i
-        hiddenWLines = [None] * self.i
-        y = 0
-        # Starting Position
-        yStart = 150
-        for m in range(self.i):
-            x1, y1 = 50, yStart+y
-            x2, y2 = 90, yStart+y+40
-            inputNodes[m] = canvas.create_oval(50, yStart+y, 90, yStart+y+40, fill="white")
-            hiddenWLines = canvas.create_line(0, 0, 200, 100, fill="white")
-            # Gaps
-            y+=200
-
-        # For Hidden layer
-        hiddenNodes = [None] * self.j
-        y = 0
-        yStart = 50
-        for m in range(self.j):
-            hiddenNodes[m] = canvas.create_oval(350, yStart+y, 390, yStart+y+40, fill="white")
-            # Gaps
-            y+=200
-
-        # For Output layer
-        outputNodes = [None] * self.k
-        y = 0
-        yStart = 250
-        for m in range(self.k):
-            outputNodes[m] = canvas.create_oval(650, yStart+y, 690, yStart+y+40, fill="white")
-            # Gaps
-            y+=200
-
-        while True:
-            tk.after(frameSpeed, tk.update()) 
-        tk.mainloop()
-
 
     # For Neuro Evolution
     def copy(self):
@@ -229,7 +180,7 @@ class NeuralNetwork:
 
         def mutateElement(val):
             if (random.uniform(0,1) < mutationRate):
-                # x = (random.uniform(0,100))
+                # x = (random.uniform(0,1000))
                 x = 2 * random.uniform(0,1) - 1
                 return x
             else:
