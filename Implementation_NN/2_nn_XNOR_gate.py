@@ -56,3 +56,4 @@ inputs = np.array([
     [1]
     ])
 print(n.feedForward(inputs))
+n.nnVisualization()

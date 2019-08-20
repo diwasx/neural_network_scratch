@@ -18,6 +18,7 @@ from neural_network import NeuralNetwork
 learningRate = 0.1
 # nn = NeuralNetwork(64, 100, 10)
 nn = NeuralNetwork(64, 150, 10)
+# nn = NeuralNetwork(18, 18, 18)
 digits = d.load_digits()
 
 def normalization(x):
@@ -211,6 +212,7 @@ def drawingCanvas():
     root.mainloop()
 
 # showPic(6)
+# nn.nnVisualization()
 training()
 testing()
 drawingCanvas()

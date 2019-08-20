@@ -49,6 +49,9 @@ class NeuralNetwork:
         self.j = hiddenLen # hidden
         self.k = outputLen # output
 
+
+        self.scaleFac = 1
+        self.gapVal = 200
         # Creating weights and assiging random values
         # Weights for Hidden
         self.weightsHid = np.zeros(shape=(self.j,self.i)) # w
@@ -171,13 +174,12 @@ class NeuralNetwork:
         # print("\nNew Hiddens Bias\n"+ str(self.biasHid) + bcolors.ENDC)
 
     def nnVisualization(self):
-        print ('\nthis is visualization')
-
+        # Best view upto 18 nodes
         tk = Tk()
         widthSize = 800
-        heightSize = 600
+        # heightSize = 600
+        heightSize = 700
         frameRate = 60
-        # frameRate = 240
         frameSpeed = int(1 / frameRate * 1000)
 
         canvas = Canvas(tk, width=widthSize, height=heightSize)
@@ -189,32 +191,88 @@ class NeuralNetwork:
         hiddenWLines = [None] * self.i
         y = 0
         # Starting Position
-        yStart = 150
+        yStart = 50 * self.scaleFac
         for m in range(self.i):
-            x1, y1 = 50, yStart+y
-            x2, y2 = 90, yStart+y+40
-            inputNodes[m] = canvas.create_oval(50, yStart+y, 90, yStart+y+40, fill="white")
-            hiddenWLines = canvas.create_line(0, 0, 200, 100, fill="white")
+
+            # If object is out of canvas, small scale factor
+            if(y >= heightSize):
+                self.scaleFac = self.scaleFac * 0.999
+                self.gapVal -= 0.8
+                tk.destroy()
+                return self.nnVisualization()
+            
+            x1, y1 = 50/self.scaleFac, yStart+y
+            x2, y2 = 90/self.scaleFac, yStart+y+40
+            inputNodes[m] = canvas.create_oval(x1*self.scaleFac, y1*self.scaleFac, x2*self.scaleFac, y2*self.scaleFac, fill="white")
+
+            # For hidden weight line
+            xic, yic = (x1+x2)/2, (y1+y2)/2
+            yTmp = 0
+            yStartTmp = 50 * self.scaleFac
+            for n in range(self.j):
+                x1, y1 = 350/self.scaleFac, yStartTmp+yTmp
+                x2, y2 = 390/self.scaleFac, yStartTmp+yTmp+40
+                xhc, yhc = (x1+x2)/2, (y1+y2)/2
+                hiddenWLines = canvas.create_line(xic*self.scaleFac, yic*self.scaleFac, xhc*self.scaleFac, yhc*self.scaleFac, fill="white")
+
+                # GapsTmp
+                yTmp = yTmp  + self.gapVal
+
             # Gaps
-            y+=200
+            y = y + self.gapVal
 
         # For Hidden layer
         hiddenNodes = [None] * self.j
         y = 0
-        yStart = 50
+        yStart = 50 * self.scaleFac
         for m in range(self.j):
-            hiddenNodes[m] = canvas.create_oval(350, yStart+y, 390, yStart+y+40, fill="white")
+
+            # If object is out of canvas, small scale factor
+            if(y >= heightSize):
+                self.scaleFac = self.scaleFac * 0.999
+                self.gapVal -= 0.8
+                tk.destroy()
+                return self.nnVisualization()
+
+            x1, y1 = 350/self.scaleFac, yStart+y
+            x2, y2 = 390/self.scaleFac, yStart+y+40
+            hiddenNodes[m] = canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
+
+            # For output weight line
+            xhc, yhc = (x1+x2)/2, (y1+y2)/2
+            yTmp = 0
+            yStartTmp = 50* self.scaleFac
+            for n in range(self.k):
+                x1, y1 = 650/self.scaleFac, yStartTmp+yTmp
+                x2, y2 = 690/self.scaleFac, yStartTmp+yTmp+40
+                xoc, yoc = (x1+x2)/2, (y1+y2)/2
+                hiddenWLines = canvas.create_line(xhc* self.scaleFac, yhc* self.scaleFac, xoc* self.scaleFac, yoc* self.scaleFac, fill="white")
+
+                # GapsTmp
+                yTmp = yTmp  + self.gapVal
+
             # Gaps
-            y+=200
+            y = y  + self.gapVal
 
         # For Output layer
         outputNodes = [None] * self.k
         y = 0
-        yStart = 250
+        yStart = 50* self.scaleFac
         for m in range(self.k):
-            outputNodes[m] = canvas.create_oval(650, yStart+y, 690, yStart+y+40, fill="white")
+
+            # If object is out of canvas, small scale factor
+            if(y >= heightSize):
+                self.scaleFac = self.scaleFac * 0.999
+                self.gapVal -= 0.8
+                tk.destroy()
+                return self.nnVisualization()
+
+            x1, y1 = 650/self.scaleFac, yStart+y
+            x2, y2 = 690/self.scaleFac, yStart+y+40
+            outputNodes[m] = canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
+
             # Gaps
-            y+=200
+            y = y  + self.gapVal
 
         while True:
             tk.after(frameSpeed, tk.update()) 
