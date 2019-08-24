@@ -9,7 +9,7 @@ from neural_network import NeuralNetwork
 pygame.init()
 
 highScore = 0
-population = 150
+population = 130
 # population = 180
 generation = 1
 class Dino():
@@ -22,9 +22,10 @@ class Dino():
         self.height = height
         self.isJump = False
         self.jumpCount = 15
-        # self.brain = NeuralNetwork(5,100,3)
-        self.brain = NeuralNetwork(5,50,3)
-        # self.brain = NeuralNetwork(5,20,3)
+        # self.brain = NeuralNetwork(6,100,3)
+        self.brain = NeuralNetwork(6,50,3)
+        # self.brain = NeuralNetwork(6,34,3)
+        # self.brain = NeuralNetwork(6,80,3)
         self.color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 
     def draw(self, win):
@@ -49,7 +50,11 @@ class Dino():
             aiSeeWidth = obstacles[0].width
             aiSeeHeight = obstacles[0].height
             aiSeeSpeed = speed
-            inputs = np.array([[aiSeeX],[aiSeeY], [aiSeeWidth], [aiSeeHeight], [aiSeeSpeed]])
+            if self.isJump == True:
+                aiSeeJump = 1
+            else:
+                aiSeeJump = 0
+            inputs = np.array([[aiSeeX],[aiSeeY], [aiSeeWidth], [aiSeeHeight], [aiSeeSpeed], [aiSeeJump]])
             output = self.brain.feedForward(inputs)
             # print(output)
             maxVal = output.max()
@@ -75,9 +80,6 @@ class Dino():
             else:
                 self.isJump = False
                 self.jumpCount = 15
-
-            # child = self.brain.copy()
-            # child = brain.mutate(0.01)
 
 class Obstacle():
     def __init__(self, x, y, width, height):
@@ -143,10 +145,10 @@ def redrawGameWindow():
                     c = Obstacle(screenWidth,270,30,30)
                 # Bird medium
                 elif (tmp == 14):
-                    c = Obstacle(screenWidth,320,30,30)
+                    c = Obstacle(screenWidth,80,30,260)
                 # Bird low
                 else:
-                    c = Obstacle(screenWidth,350,30,30)
+                    c = Obstacle(screenWidth,110,30,260)
                 gen = 0
                 obstacles.append(c)
 
@@ -192,7 +194,6 @@ def main():
             dinosour.think()
         redrawGameWindow()
 
-
         # If all dino dies, loop end
         if len(dinosours) == 0:
             run = False
@@ -224,6 +225,20 @@ def nextGen():
         # print (str(dino.fitness))
         if maxFitness < dino.fitness:
             maxFitness = dino.fitness
+            bestDino = dino
+
+    for dino in savedDino:
+        if (dino != bestDino):
+            dino.brain.tk.destroy()
+
+    tkStruct = bestDino.brain.nnStructure()
+    global bestTk
+    if 'bestTk' in globals():
+        bestTk.destroy()
+
+    # Best Dino NN Structure
+    bestTk = bestDino.brain.tk
+    # tkStruct.mainloop()
 
     # Selection based on fitness value
     for i in range(population):

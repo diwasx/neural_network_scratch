@@ -5,8 +5,8 @@ import os
 import random
 import numpy as np
 sys.path.append('..')
-# from neural_network import NeuralNetwork
-from neural_network_verbose import NeuralNetwork
+from neural_network import NeuralNetwork
+# from neural_network_verbose import NeuralNetwork
 
 def blockPrint():
     sys.stdout = open(os.devnull, 'w')
@@ -71,3 +71,5 @@ inputs = np.array([
     [1]
     ])
 print(n.feedForward(inputs))
+tkVis = n.nnStructure()
+tkVis.mainloop()

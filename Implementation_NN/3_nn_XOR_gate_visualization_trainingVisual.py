@@ -17,28 +17,35 @@ canvas = Canvas(tk, width=widthSize, height=heightSize, background="black")
 tk.title("Drawing_float")
 canvas.pack()
 inputLen = 2
-hiddenLen = 4
+hiddenLen = 18
 outputLen = 1
 learningRate = 0.1
 n = NeuralNetwork(inputLen, hiddenLen, outputLen)
 
+# With this structure, answer may not be predicted sometimes
+# n = NeuralNetwork(2, 2, 1)
+
 training_data = {
-    1: {'inputs': np.array([[0],[0]]), 'targets': np.array([[1]])},
-    2: {'inputs': np.array([[0],[1]]), 'targets': np.array([[0]])},
-    3: {'inputs': np.array([[1],[0]]), 'targets': np.array([[0]])},
-    4: {'inputs': np.array([[1],[1]]), 'targets': np.array([[1]])},
+    1: {'inputs': np.array([[0],[0]]), 'targets': np.array([[0]])},
+    2: {'inputs': np.array([[0],[1]]), 'targets': np.array([[1]])},
+    3: {'inputs': np.array([[1],[0]]), 'targets': np.array([[1]])},
+    4: {'inputs': np.array([[1],[1]]), 'targets': np.array([[0]])},
     }
 
-def training():
+while True:
+
+    # Supervised Training with Visualization
+    loopForSpeedUp = 250
+    for j in range (loopForSpeedUp):
+        x = random.choice(list(training_data.values()))
+        inputs =  x.get('inputs')
+        targets =  x.get('targets')
+        n.trainSVLearing(inputs,targets,learningRate)
+
     x = random.choice(list(training_data.values()))
     inputs =  x.get('inputs')
     targets =  x.get('targets')
-    n.trainSVLearing(inputs,targets,learningRate)
-n.tk.destroy()
-
-while True:
-    for i in range(2000):
-        training()
+    tkSV = n.trainSVLearingVisualization(inputs,targets,learningRate)
 
     resolution = 10
     cols = widthSize/resolution
@@ -61,6 +68,7 @@ while True:
             finalColor = "#" + hexColor + hexColor + hexColor
             print("finalColor = " + str(finalColor))
 
+            # rect = canvas.create_rectangle(i*resolution, j*resolution, (i+1)*resolution, (j+1)*resolution, outline='red')
             rect = canvas.create_rectangle(i*resolution, j*resolution, (i+1)*resolution, (j+1)*resolution)
             # canvas.itemconfig(rect, fill="#ff00ff")
             canvas.itemconfig(rect, fill=finalColor)

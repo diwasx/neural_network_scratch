@@ -17,6 +17,7 @@ from neural_network import NeuralNetwork
 learningRate = 0.1
 # nn = NeuralNetwork(64, 100, 10)
 nn = NeuralNetwork(64, 150, 10)
+# nn = NeuralNetwork(64, 64, 10)
 # nn = NeuralNetwork(18, 18, 18)
 digits = d.load_digits()
 
@@ -51,19 +52,17 @@ def showPic(i):
     plt.imshow(normalizedImgInv, cmap=plt.cm.gray, interpolation='nearest')
     # plt.imshow(normalizedImg)
     plt.show()
-            
+
 def training():
     print ("\nTraining -------\n")
-    # for i in range (10):
-    for i in range (10):
-        # (total no of data = 1797)
-        for i in range(1437):
-            imgTrain = digits.images[i]
-            target = digits.target[i]
-            # print(imgTrain)
-            # print(target)
-
-            # Training NN with training images
+    # Supervised Training with Visualization
+    loopForSpeedUp = 10
+    loopForVisualization = 40*loopForSpeedUp
+    p=0
+    for j in range (loopForSpeedUp):
+        for k in range(1437):
+            imgTrain = digits.images[k]
+            target = digits.target[k]
             imgVec = np.zeros(shape=(64,1))
             targetVec = np.zeros(shape=(10,1))
             targetVec[target] = 1
@@ -72,9 +71,23 @@ def training():
                 for j in range(8):
                     imgVec[n] = imgTrain[i][j]
                     n+=1
-            # print ("\nImage Vector is \n" + str(imgVec) + "\n")
-            # print ("\nTarget Vector is \n" + str(targetVec) + "\n")
-            nn.trainSVLearing(imgVec, targetVec, learningRate)
+            nn.trainSVLearing(imgVec,targetVec,learningRate)
+            if (k%loopForVisualization == 0):
+                print("Training visualization no: " + str(p+1))
+                p+=1
+                k = random.randint(0,1437)
+                imgTrain = digits.images[i]
+                target = digits.target[i]
+                imgVec = np.zeros(shape=(64,1))
+                targetVec = np.zeros(shape=(10,1))
+                targetVec[target] = 1
+                n = 0
+                for i in range(8):
+                    for j in range(8):
+                        imgVec[n] = imgTrain[i][j]
+                        n+=1
+                global tkVis
+                tkVis = nn.trainSVLearingVisualization(imgVec,targetVec,learningRate)
 
 def testing():
     # Testing NN with testing images
@@ -184,7 +197,7 @@ def drawingCanvas():
     # Tkinter create a canvas to draw on
     cv = Canvas(root, width=width, height=height, bg='white')
     cv.pack(padx=10, pady=10)
-    cv.pack()
+    # cv.pack()
 
     # PIL create an empty image and draw object to draw on memory only, not visible
     image1 = PIL.Image.new("RGB", (width, height), white)
@@ -201,8 +214,6 @@ def drawingCanvas():
     root.mainloop()
 
 # showPic(6)
-# nn.nnVisualization()
 training()
 testing()
-nn.tk.destroy()
 drawingCanvas()

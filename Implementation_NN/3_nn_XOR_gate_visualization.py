@@ -13,18 +13,16 @@ widthSize = 500
 heightSize = 500
 frameRate = 60
 frameSpeed = int(1 / frameRate * 1000)
-
 canvas = Canvas(tk, width=widthSize, height=heightSize, background="black")
 tk.title("Drawing_float")
 canvas.pack()
-
 inputLen = 2
 hiddenLen = 4
 outputLen = 1
 learningRate = 0.1
 n = NeuralNetwork(inputLen, hiddenLen, outputLen)
 
-# with this structure, answer may not be predicted sometimes
+# With this structure, answer may not be predicted sometimes
 # n = NeuralNetwork(2, 2, 1)
 
 training_data = {
@@ -34,12 +32,12 @@ training_data = {
     4: {'inputs': np.array([[1],[1]]), 'targets': np.array([[0]])},
     }
 
-
 def training():
     x = random.choice(list(training_data.values()))
     inputs =  x.get('inputs')
     targets =  x.get('targets')
     n.trainSVLearing(inputs,targets,learningRate)
+n.tk.destroy()
 
 while True:
     for i in range(2000):

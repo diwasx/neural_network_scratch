@@ -42,16 +42,20 @@ def dSigmoid(x):
     return (tmpMatrix)
 
 class NeuralNetwork:
-
     # Constructor
     def __init__(self, inputLen, hiddenLen, outputLen):
         self.i = inputLen # input
         self.j = hiddenLen # hidden
         self.k = outputLen # output
 
-
         self.scaleFac = 1
         self.gapVal = 200
+        self.tk = Tk()
+        self.tk.title("Drawing_float")
+        widthSize = 800
+        heightSize = 700
+        self.canvas = Canvas(self.tk, width=widthSize, height=heightSize)
+
         # Creating weights and assiging random values
         # Weights for Hidden
         self.weightsHid = np.zeros(shape=(self.j,self.i)) # w
@@ -173,19 +177,14 @@ class NeuralNetwork:
         self.biasHid+=tmpHid
         # print("\nNew Hiddens Bias\n"+ str(self.biasHid) + bcolors.ENDC)
 
-    def nnVisualization(self):
+    def nnStructure(self):
         # Best view upto 18 nodes
-        tk = Tk()
-        widthSize = 800
-        # heightSize = 600
-        heightSize = 700
         frameRate = 60
         frameSpeed = int(1 / frameRate * 1000)
-
-        canvas = Canvas(tk, width=widthSize, height=heightSize)
-        tk.title("Drawing_float")
-        canvas.pack()
-
+        widthSize = 800
+        heightSize = 700
+        self.canvas.pack()
+                
         # For input layer
         inputNodes = [None] * self.i
         hiddenWLines = [None] * self.i
@@ -193,17 +192,16 @@ class NeuralNetwork:
         # Starting Position
         yStart = 50 * self.scaleFac
         for m in range(self.i):
-
             # If object is out of canvas, small scale factor
             if(y >= heightSize):
                 self.scaleFac = self.scaleFac * 0.999
                 self.gapVal -= 0.8
-                tk.destroy()
-                return self.nnVisualization()
+                self.canvas.delete("all")
+                return self.nnStructure()
             
             x1, y1 = 50/self.scaleFac, yStart+y
             x2, y2 = 90/self.scaleFac, yStart+y+40
-            inputNodes[m] = canvas.create_oval(x1*self.scaleFac, y1*self.scaleFac, x2*self.scaleFac, y2*self.scaleFac, fill="white")
+            inputNodes[m] = self.canvas.create_oval(x1*self.scaleFac, y1*self.scaleFac, x2*self.scaleFac, y2*self.scaleFac, fill="white")
 
             # For hidden weight line
             xic, yic = (x1+x2)/2, (y1+y2)/2
@@ -213,11 +211,15 @@ class NeuralNetwork:
                 x1, y1 = 350/self.scaleFac, yStartTmp+yTmp
                 x2, y2 = 390/self.scaleFac, yStartTmp+yTmp+40
                 xhc, yhc = (x1+x2)/2, (y1+y2)/2
-                hiddenWLines = canvas.create_line(xic*self.scaleFac, yic*self.scaleFac, xhc*self.scaleFac, yhc*self.scaleFac, fill="white")
-
+                weight = self.weightsHid[n][m]
+                # print(weight)
+                if(weight > 0):
+                    color = "red";
+                else:
+                    color = "green";
+                hiddenWLines = self.canvas.create_line(xic*self.scaleFac, yic*self.scaleFac, xhc*self.scaleFac, yhc*self.scaleFac, fill=color, width=3)
                 # GapsTmp
                 yTmp = yTmp  + self.gapVal
-
             # Gaps
             y = y + self.gapVal
 
@@ -226,17 +228,16 @@ class NeuralNetwork:
         y = 0
         yStart = 50 * self.scaleFac
         for m in range(self.j):
-
             # If object is out of canvas, small scale factor
             if(y >= heightSize):
                 self.scaleFac = self.scaleFac * 0.999
                 self.gapVal -= 0.8
-                tk.destroy()
-                return self.nnVisualization()
+                self.canvas.delete("all")
+                return self.nnStructure()
 
             x1, y1 = 350/self.scaleFac, yStart+y
             x2, y2 = 390/self.scaleFac, yStart+y+40
-            hiddenNodes[m] = canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
+            hiddenNodes[m] = self.canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
 
             # For output weight line
             xhc, yhc = (x1+x2)/2, (y1+y2)/2
@@ -246,8 +247,13 @@ class NeuralNetwork:
                 x1, y1 = 650/self.scaleFac, yStartTmp+yTmp
                 x2, y2 = 690/self.scaleFac, yStartTmp+yTmp+40
                 xoc, yoc = (x1+x2)/2, (y1+y2)/2
-                hiddenWLines = canvas.create_line(xhc* self.scaleFac, yhc* self.scaleFac, xoc* self.scaleFac, yoc* self.scaleFac, fill="white")
-
+                weight = self.weightsOut[n][m]
+                # print(weight)
+                if(weight > 0):
+                    color = "red";
+                else:
+                    color = "green";
+                hiddenWLines = self.canvas.create_line(xhc* self.scaleFac, yhc* self.scaleFac, xoc* self.scaleFac, yoc* self.scaleFac, fill=color, width=3)
                 # GapsTmp
                 yTmp = yTmp  + self.gapVal
 
@@ -259,25 +265,129 @@ class NeuralNetwork:
         y = 0
         yStart = 50* self.scaleFac
         for m in range(self.k):
-
             # If object is out of canvas, small scale factor
             if(y >= heightSize):
                 self.scaleFac = self.scaleFac * 0.999
                 self.gapVal -= 0.8
-                tk.destroy()
-                return self.nnVisualization()
+                self.canvas.delete("all")
+                return self.nnStructure()
 
             x1, y1 = 650/self.scaleFac, yStart+y
             x2, y2 = 690/self.scaleFac, yStart+y+40
-            outputNodes[m] = canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
+            outputNodes[m] = self.canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
+            # Gaps
+            y = y  + self.gapVal
+
+        # while True:
+        self.tk.after(frameSpeed, self.tk.update()) 
+        return (self.tk)
+
+    def trainSVLearingVisualization(self,inputs,targets,learningRate):
+        # Best view upto 18 nodes
+        self.canvas.pack()
+        widthSize = 800
+        heightSize = 700
+        frameRate = 60
+        frameSpeed = int(1 / frameRate * 1000)
+
+        # For input layer
+        inputNodes = [None] * self.i
+        hiddenWLines = [None] * self.i
+        y = 0
+        # Starting Position
+        yStart = 50 * self.scaleFac
+        for m in range(self.i):
+            # If object is out of canvas, small scale factor
+            if(y >= heightSize):
+                self.scaleFac = self.scaleFac * 0.999
+                self.gapVal -= 0.8
+                self.canvas.delete("all")
+                return self.trainSVLearingVisualization(inputs,targets,learningRate)
+            
+            x1, y1 = 50/self.scaleFac, yStart+y
+            x2, y2 = 90/self.scaleFac, yStart+y+40
+            inputNodes[m] = self.canvas.create_oval(x1*self.scaleFac, y1*self.scaleFac, x2*self.scaleFac, y2*self.scaleFac, fill="white")
+
+            # For hidden weight line
+            xic, yic = (x1+x2)/2, (y1+y2)/2
+            yTmp = 0
+            yStartTmp = 50 * self.scaleFac
+            for n in range(self.j):
+                x1, y1 = 350/self.scaleFac, yStartTmp+yTmp
+                x2, y2 = 390/self.scaleFac, yStartTmp+yTmp+40
+                xhc, yhc = (x1+x2)/2, (y1+y2)/2
+                weight = self.weightsHid[n][m]
+                # print(weight)
+                if(weight > 0):
+                    color = "red";
+                else:
+                    color = "green";
+
+                hiddenWLines = self.canvas.create_line(xic*self.scaleFac, yic*self.scaleFac, xhc*self.scaleFac, yhc*self.scaleFac, fill=color, width=3)
+                # GapsTmp
+                yTmp = yTmp  + self.gapVal
+
+            # Gaps
+            y = y + self.gapVal
+
+        # For Hidden layer
+        hiddenNodes = [None] * self.j
+        y = 0
+        yStart = 50 * self.scaleFac
+        for m in range(self.j):
+            # If object is out of canvas, small scale factor
+            if(y >= heightSize):
+                self.scaleFac = self.scaleFac * 0.999
+                self.gapVal -= 0.8
+                self.canvas.delete("all")
+                return self.trainSVLearingVisualization(inputs,targets,learningRate)
+
+            x1, y1 = 350/self.scaleFac, yStart+y
+            x2, y2 = 390/self.scaleFac, yStart+y+40
+            hiddenNodes[m] = self.canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
+
+            # For output weight line
+            xhc, yhc = (x1+x2)/2, (y1+y2)/2
+            yTmp = 0
+            yStartTmp = 50* self.scaleFac
+            for n in range(self.k):
+                x1, y1 = 650/self.scaleFac, yStartTmp+yTmp
+                x2, y2 = 690/self.scaleFac, yStartTmp+yTmp+40
+                xoc, yoc = (x1+x2)/2, (y1+y2)/2
+                weight = self.weightsOut[n][m]
+                # print(weight)
+                if(weight > 0):
+                    color = "red";
+                else:
+                    color = "green";
+                hiddenWLines = self.canvas.create_line(xhc* self.scaleFac, yhc* self.scaleFac, xoc* self.scaleFac, yoc* self.scaleFac, fill=color, width=3)
+                # GapsTmp
+                yTmp = yTmp  + self.gapVal
 
             # Gaps
             y = y  + self.gapVal
 
-        while True:
-            tk.after(frameSpeed, tk.update()) 
-        tk.mainloop()
+        # For Output layer
+        outputNodes = [None] * self.k
+        y = 0
+        yStart = 50* self.scaleFac
+        for m in range(self.k):
+            # If object is out of canvas, small scale factor
+            if(y >= heightSize):
+                self.scaleFac = self.scaleFac * 0.999
+                self.gapVal -= 0.8
+                self.canvas.delete("all")
+                return self.trainSVLearingVisualization(inputs,targets,learningRate)
 
+            x1, y1 = 650/self.scaleFac, yStart+y
+            x2, y2 = 690/self.scaleFac, yStart+y+40
+            outputNodes[m] = self.canvas.create_oval(x1* self.scaleFac, y1* self.scaleFac, x2* self.scaleFac, y2* self.scaleFac, fill="white")
+            # Gaps
+            y = y  + self.gapVal
+
+        self.tk.after(frameSpeed, self.tk.update()) 
+        self.trainSVLearing(inputs,targets,learningRate)
+        return (self.tk)
 
     # For Neuro Evolution
     def copy(self):
