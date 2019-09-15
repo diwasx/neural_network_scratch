@@ -36,6 +36,7 @@ while True:
 
     # Supervised Training with Visualization
     loopForSpeedUp = 250
+    # loopForSpeedUp = 450
     for j in range (loopForSpeedUp):
         x = random.choice(list(training_data.values()))
         inputs =  x.get('inputs')

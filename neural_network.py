@@ -4,9 +4,8 @@
 import random
 import math
 import sys
-import numpy as np
 from tkinter import * 
-import time
+import numpy as np
 
 class bcolors:
     HEADER = '\033[95m'

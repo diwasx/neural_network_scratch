@@ -23,8 +23,8 @@ class Dino():
         self.isJump = False
         self.jumpCount = 15
         # self.brain = NeuralNetwork(6,100,3)
-        self.brain = NeuralNetwork(6,50,3)
-        # self.brain = NeuralNetwork(6,34,3)
+        # self.brain = NeuralNetwork(6,50,3)
+        self.brain = NeuralNetwork(6,18,3)
         # self.brain = NeuralNetwork(6,80,3)
         self.color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 

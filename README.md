@@ -25,10 +25,22 @@ n = NeuralNetwork(3, 10, 9)
 n.feedForward(inputs)
 ```
 
+**Neural Network Structure**
+
+```
+n.nnStructure()
+```
+
 **Training NN with know data (supervised learning)**
 
 ```
 n.trainSVLearing(inputs,targets,learningRate)
+```
+
+**Training Visualization with weights and biases changes**
+
+```
+n.trainSVLearingVisualization(inputs,targets,learningRate)
 ```
 
 
@@ -36,4 +48,4 @@ n.trainSVLearing(inputs,targets,learningRate)
 
 * Logical Gates
 * Digit Recognition
-* Machine Play T-rex game using NN and genetic algorithm (NEAT algorithm) *
+* Machine Play T-rex game using NN and genetic algorithm (NEAT algorithm)

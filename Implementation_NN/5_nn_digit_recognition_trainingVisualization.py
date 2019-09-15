@@ -16,7 +16,7 @@ from neural_network import NeuralNetwork
 
 learningRate = 0.1
 # nn = NeuralNetwork(64, 100, 10)
-nn = NeuralNetwork(64, 150, 10)
+nn = NeuralNetwork(64, 50, 10)
 # nn = NeuralNetwork(64, 64, 10)
 # nn = NeuralNetwork(18, 18, 18)
 digits = d.load_digits()
