@@ -61,6 +61,7 @@ class NeuralNetwork:
             for n in range(self.i):
                 randVal = random.uniform(-1,1)
                 self.weightsHid[m][n] =  randVal
+        print("\nWeights of hidden\n" + str(self.weightsHid))
 
         # Weights for Output
         self.weightsOut = np.zeros(shape=(self.k,self.j)) # w'
@@ -68,6 +69,7 @@ class NeuralNetwork:
             for n in range(self.j):
                 randVal = random.uniform(-1,1)
                 self.weightsOut[m][n] =  randVal
+        print("\nWeights of output\n" + str(self.weightsOut))
 
         # Creating Bias and assiging random values
         # Bias for Hidden
@@ -75,22 +77,31 @@ class NeuralNetwork:
         for j in range(self.j):
             randVal = random.uniform(-1,1)
             self.biasHid[j][0] =  randVal
+        print("\nBias of hidden\n" + str(self.biasHid))
 
         # Bias for Output
         self.biasOut = np.zeros(shape=(self.k,1))
         for k in range(self.k):
             randVal = random.uniform(-1,1)
             self.biasOut[k][0] =  randVal
+        print("\nBias of output\n" + str(self.biasOut))
+        print("\n")
 
     # Algorithm that computes output based on weight and bias (similar to guess function in perceptron)
     def feedForward(self,inputs):
+        print("\n<-- Feed forward --->")
         self.inputs = inputs
+        print("\nInput matrix\n" + str(self.inputs))
 
         self.hiddens = self.weightsHid.dot(self.inputs) + self.biasHid
+        print("\nMatrix of Hiddens \n"+ str(self.hiddens))
         self.hiddens = sigmoid(self.hiddens)
+        print("\nMatrix of Hiddens after activation\n"+ str(self.hiddens))
 
         self.outputs = self.weightsOut.dot(self.hiddens) + self.biasOut
+        print("\nMatrix of Outputs \n" + str(self.outputs))
         self.outputs = sigmoid(self.outputs)
+        print(bcolors.OKBLUE + "\nMatrix of Outputs after activation\n"+ str(self.outputs) + bcolors.ENDC)
         return self.outputs
 
     # Training NN using Supervised learning
@@ -98,12 +109,19 @@ class NeuralNetwork:
         # Guess outputs from inputs
         self.feedForward(inputs)
 
+        print("\n<-- Backpropagation --->")
 
         # Calculate output errors
         output_errors = targets - self.outputs
+        print("\nMatrix of Inputs\n"+ str(inputs))
+        print("\nMatrix of Targets\n"+ str(targets))
+        print("\nMatrix of Outputs \n"+ str(self.outputs))
+        print("\nMatrix of Output Errors\n"+ str(output_errors))
 
+        print("\n<-- Gradient Descent of Output--->")
         # Output Gradient
         output_gradient = dSigmoid(self.outputs)
+        print("\nOutput Gradient\n"+ str(output_gradient))
 
         # Delta Output weights
         # weightsOut_delta = learningR * output_errors * output_gradient ∙ hiddens.transpose()
@@ -111,22 +129,31 @@ class NeuralNetwork:
 
         tmpOut = learningR * output_errors * output_gradient
 
+        print("\ntmpOut\n"+ str(tmpOut))
 
+        print("\nHiddens Transpose\n"+ str(self.hiddens.transpose()))
         weightsOut_delta = tmpOut.dot(self.hiddens.transpose())
+        print("\nOutput deltaWeight\n"+ str(weightsOut_delta))
 
         # New Output weights
         self.weightsOut += weightsOut_delta
+        print(bcolors.OKBLUE + "\nNew Output Weights\n"+ str(self.weightsOut))
 
         # new biasOut += learningR * output_errors * output_gradient
         self.biasOut+=tmpOut
+        print("\nNew Output Bias\n"+ str(self.biasOut) + bcolors.ENDC)
 
 
         # Calculate hidden errors
         weightsOutTranspose = self.weightsOut.transpose()
+        print("\nWeight of outputs transpose\n"+ str(weightsOutTranspose))
         hidden_errors = weightsOutTranspose.dot(output_errors)
+        print("\nMatrix of Hidden Errors\n"+ str(hidden_errors))
 
+        print("\n<-- Gradient Descent of Hidden--->")
         # Hidden Gradient
         hidden_gradient = dSigmoid(self.hiddens)
+        print("\nHiddens Gradient\n"+ str(hidden_gradient))
 
         # Delta Hidden weights
         # weightsHid_delta = learningR * hidden_errors * hidden_gradient ∙ inputs.transpose()
@@ -134,14 +161,19 @@ class NeuralNetwork:
 
         tmpHid = learningR * hidden_errors * hidden_gradient 
 
+        print("\ntmpHid\n"+ str(tmpHid))
 
+        print("\nInputs Transpose\n"+ str(self.inputs.transpose()))
         weightsHid_delta = tmpHid.dot(self.inputs.transpose())
+        print("\nHidden deltaWeight\n"+ str(weightsHid_delta))
 
         # New Hiddens weights
         self.weightsHid += weightsHid_delta
+        print(bcolors.OKBLUE + "\nNew Hiddens Weights\n"+ str(self.weightsHid))
 
         # new biasHid += learningR * hidden_errors * hidden_gradient
         self.biasHid+=tmpHid
+        print("\nNew Hiddens Bias\n"+ str(self.biasHid) + bcolors.ENDC)
 
     def nnStructure(self):
         # Best view upto 18 nodes
