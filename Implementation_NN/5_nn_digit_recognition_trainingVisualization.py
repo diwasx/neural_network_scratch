@@ -6,7 +6,6 @@ import numpy as np
 from tkinter import *
 # from sklearn import datasets as d
 import sklearn.datasets as d
-import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
 from PIL import ImageTk, Image, ImageDraw, ImageOps
