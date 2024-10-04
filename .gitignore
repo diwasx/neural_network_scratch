@@ -1,2 +1,4 @@
-/__pycache__
+.venv
+.env
+__pycache__
 /Implementation_NN/image.png

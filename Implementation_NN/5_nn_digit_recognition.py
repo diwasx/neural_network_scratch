@@ -55,7 +55,7 @@ def showPic(i):
 def training():
     print ("\nTraining -------\n")
     # for i in range (10):
-    for i in range (10):
+    for i in range (15):
         # (total no of data = 1797)
         for i in range(1437):
             imgTrain = digits.images[i]
@@ -119,7 +119,7 @@ def drawingCanvas():
         image1.save(filename)
         original_image = Image.open("image.png")
         size = (8,8)
-        resizeImg = ImageOps.fit(original_image, size, Image.ANTIALIAS).convert('L')
+        resizeImg = ImageOps.fit(original_image, size, Image.LANCZOS).convert('L')
         # print (resizeImg)
 
         # img = Image.open('image.png')

@@ -49,3 +49,4 @@ n.trainSVLearingVisualization(inputs,targets,learningRate)
 * Logical Gates
 * Digit Recognition
 * Machine Play T-rex game using NN and genetic algorithm (NEAT algorithm)
+* [Disease Prediction](https://github.com/diwasx/diseases_prediction) - Implementation of NN Library to predict the diseases with the given symptoms
